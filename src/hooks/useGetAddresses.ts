@@ -1,7 +1,7 @@
 import { useQuery } from "react-query";
 import client from "../utils/client";
 
-interface Address {
+export interface Address {
   id: number;
   name: string;
   address1: string;
