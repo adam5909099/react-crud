@@ -1,3 +1,14 @@
+import { Route, Routes } from "react-router-dom";
+import AddressCreate from "./pages/AddressCreate";
+import AddressEdit from "./pages/AddressEdit";
+import AddressList from "./pages/AddressList";
+
 export default function App() {
-  return <h1 className="text-3xl font-bold underline">Hello world!</h1>;
+  return (
+    <Routes>
+      <Route path="/" element={<AddressList />} />
+      <Route path="/edit" element={<AddressEdit />} />
+      <Route path="/create" element={<AddressCreate />} />
+    </Routes>
+  );
 }
