@@ -1,4 +1,4 @@
-import { HTMLAttributes } from "react";
+import { ButtonHTMLAttributes } from "react";
 
 export type ButtonVariant = "default" | "danger" | "success";
 
@@ -8,24 +8,27 @@ const varientMap: Record<ButtonVariant, string> = {
   success: "bg-green-400",
 };
 
-interface Props extends HTMLAttributes<HTMLButtonElement> {
+interface Props extends ButtonHTMLAttributes<HTMLButtonElement> {
   varient?: ButtonVariant;
+  loading?: boolean;
 }
 
 export default function Button({
   varient = "default",
   children,
   className,
+  loading,
   ...props
 }: Props) {
   return (
     <button
       {...props}
-      className={`px-4 py-1 text-sm text-white rounded ${varientMap[varient]} ${
+      disabled={loading}
+      className={`px-6 py-2 text-sm text-white rounded ${varientMap[varient]} ${
         className ?? ""
       }`}
     >
-      {children}
+      {loading ? "Loading..." : children}
     </button>
   );
 }

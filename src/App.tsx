@@ -11,8 +11,8 @@ export default function App() {
     <QueryClientProvider client={queryClient}>
       <Routes>
         <Route path="/" element={<AddressList />} />
-        <Route path="/edit" element={<AddressEdit />} />
         <Route path="/create" element={<AddressCreate />} />
+        <Route path="/:id" element={<AddressEdit />} />
       </Routes>
     </QueryClientProvider>
   );

@@ -1,35 +1,34 @@
 import { useMemo } from "react";
-import useGetAddresses, { Address } from "../hooks/useGetAddresses";
+import useGetAddresses from "../hooks/useGetAddresses";
 import { usePagination, useTable } from "react-table";
 import Button from "../components/Button";
-
-function ActionCell(row: Address) {
-  return (
-    <div className="flex space-x-4">
-      <Button>Edit</Button>
-      <Button varient="danger">Delete</Button>
-    </div>
-  );
-}
+import Page from "../components/Page";
+import { useNavigate } from "react-router-dom";
+import TableActionCell from "../components/TableActionCell";
 
 export default function AddressList() {
   const { data } = useGetAddresses();
+  const navigate = useNavigate();
 
   const columns = useMemo(
     () => [
       { Header: "Name", accessor: "name" },
-      { Header: "Address 1", accessor: "address1" },
+      { Header: "Address", accessor: "address1" },
       { Header: "Address 2", accessor: "address2" },
       { Header: "City", accessor: "city" },
       { Header: "State", accessor: "state" },
       { Header: "Zip", accessor: "zip" },
       {
-        Header: <Button varient="success">Create</Button>,
+        Header: (
+          <Button varient="success" onClick={() => navigate("/create")}>
+            Create
+          </Button>
+        ),
         accessor: "action",
-        Cell: ActionCell,
+        Cell: TableActionCell,
       },
     ],
-    []
+    [navigate]
   );
 
   const {
@@ -46,7 +45,7 @@ export default function AddressList() {
   } = useTable({ columns, data: data ?? [] }, usePagination);
 
   return (
-    <div className="container mx-auto py-8">
+    <Page title="All Addresses">
       <table
         {...getTableProps()}
         className="w-full border-b border-gray-200 shadow"
@@ -57,7 +56,7 @@ export default function AddressList() {
               {headerGroup.headers.map((column: any) => (
                 <th
                   {...column.getHeaderProps()}
-                  className="px-6 py-2 text-xs text-gray-500"
+                  className="px-6 py-2 text-xs text-gray-500 text-left"
                 >
                   {column.render("Header")}
                 </th>
@@ -109,6 +108,6 @@ export default function AddressList() {
           ))}
         </select>
       </div>
-    </div>
+    </Page>
   );
 }

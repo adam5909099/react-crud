@@ -12,7 +12,7 @@ export interface Address {
 }
 
 export default function useGetAddresses() {
-  const url = "v1/address";
+  const url = "/v1/address";
 
   return useQuery<Address[]>(url, () => client.get(url).then((r) => r.data));
 }
